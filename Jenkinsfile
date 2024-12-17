@@ -329,7 +329,8 @@ def parallelBuildTestQualityGate(config) {
                     echo "Running SonarQube analysis on ${repoName}"
                     script {
                         try {
-                            withSonarQubeEnv('sonar_gradle') {
+                            def sonarEnv = (buildTool == 'gradle') ? 'sonar_gradle' : 'sonarqube'
+                            withSonarQubeEnv("${sonarEnv}") {
                                 if (buildTool == 'gradle') {
                                     sh """
                                         cd ${folder}
@@ -421,11 +422,14 @@ pipeline {
 
     environment {
         redmineApiKey = credentials('redmine_api_key')
+        jenkinsApiKey = credentials('jenkins_api')
+
         sonarApiToken = credentials('sonar-github-maven')
         //sonarApiToken = credentials('sonar-github-gradle')
-        jenkinsApiKey = credentials('jenkins_api')
+        
         //GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
         //PATH = "${GRADLE_HOME}/bin:${env.PATH}"
+        
         MVN_HOME = tool 'jenkins_Maven_3_9_9'
         PATH = "$PATH:/var/jenkins_home/.local/bin"
     }
