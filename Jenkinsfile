@@ -32,6 +32,7 @@ def parallelBuildTestQualityGate(config) {
                 echo "Building ${repoName} with ${buildTool}"
                 script {
                     def startTime = System.currentTimeMillis()
+                    def buildResult = 'SUCCESS'
                     try {
                         echo "Starting Build stage at: ${new Date(startTime)}"
                         if (buildTool == 'gradle') {
@@ -46,6 +47,7 @@ def parallelBuildTestQualityGate(config) {
                             error "Unsupported build tool: ${buildTool}. Pipeline stopped."
                         }
                     } catch (Exception e) {
+                        buildResult = 'FAILURE'
                         currentBuild.result = 'FAILURE'
                     } finally {
                         def endTime = System.currentTimeMillis()
@@ -61,9 +63,9 @@ def parallelBuildTestQualityGate(config) {
                         echo "Build stage completed at: ${new Date(endTime)}"
                         echo "Build stage took: ${formattedDuration}"
 
-                        def redmineIssueTitle = "[${repoName}][Build][${currentBuild.number}]-[SUCCESS]"
+                        def redmineIssueTitle = "[${repoName}][Build][${currentBuild.number}]-[${buildResult}]"
                         def redmineIssueDescription = """
-- Build Result: SUCCESS
+- Build Result: ${buildResult}
 - Build Start Time: ${new Date(startTime).format('yyyy-MM-dd HH:mm:ss')}
 - Build Duration: ${formattedDuration}
 - Build Number: ${currentBuild.number}
