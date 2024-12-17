@@ -50,21 +50,23 @@ def parallelBuildTestQualityGate(config) {
                     } finally {
                         def endTime = System.currentTimeMillis()
                         def duration = (endTime - startTime) / 1000
-                        def hours = duration / 3600
-                        def minutes = (duration % 3600) / 60
-                        def seconds = duration % 60
+                        def durationInt = duration.toInteger()
+
+                        def hours = (durationInt / 3600).toInteger()
+                        def minutes = ((durationInt % 3600) / 60).toInteger()
+                        def seconds = (durationInt % 60).toInteger()
 
                         def formattedDuration = String.format("%02d:%02d:%02d", hours, minutes, seconds)
 
                         echo "Build stage completed at: ${new Date(endTime)}"
-                        echo "Build stage took: ${duration} seconds"
+                        echo "Build stage took: ${formattedDuration}"
 
                         def redmineIssueTitle = "[${repoName}][Build][${currentBuild.number}]-[SUCCESS]"
                         def redmineIssueDescription = """
 - Build Result: SUCCESS
 - Build Start Time: ${new Date(startTime).format('yyyy-MM-dd HH:mm:ss')}
 - Build Duration: ${formattedDuration}
-- Build Number: ${currentBuild.number}                        
+- Build Number: ${currentBuild.number}
 """
 
                         def redmineIssueData = [
@@ -419,10 +421,13 @@ pipeline {
 
     environment {
         redmineApiKey = credentials('redmine_api_key')
-        sonarApiToken = credentials('sonar-github-gradle')
+        sonarApiToken = credentials('sonar-github-maven')
+        //sonarApiToken = credentials('sonar-github-gradle')
         jenkinsApiKey = credentials('jenkins_api')
-        GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
-        PATH = "${GRADLE_HOME}/bin:${env.PATH}"
+        //GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
+        //PATH = "${GRADLE_HOME}/bin:${env.PATH}"
+        MVN_HOME = tool 'jenkins_Maven_3_9_9'
+        PATH = "$PATH:/var/jenkins_home/.local/bin"
     }
 
     stages {
