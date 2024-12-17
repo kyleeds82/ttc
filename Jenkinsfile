@@ -426,14 +426,14 @@ pipeline {
         redmineApiKey = credentials('redmine_api_key')
         jenkinsApiKey = credentials('jenkins_api')
 
-        sonarApiToken = credentials('sonar-github-maven')
-        //sonarApiToken = credentials('sonar-github-gradle')
+        //sonarApiToken = credentials('sonar-github-maven')
+        sonarApiToken = credentials('sonar-github-gradle')
         
-        //GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
-        //PATH = "${GRADLE_HOME}/bin:${env.PATH}"
+        GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
+        PATH = "${GRADLE_HOME}/bin:${env.PATH}"
         
         MVN_HOME = tool 'jenkins_Maven_3_9_9'
-        PATH = "$PATH:/var/jenkins_home/.local/bin"
+        //PATH = "$PATH:/var/jenkins_home/.local/bin"
     }
 
     stages {
