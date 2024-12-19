@@ -27,7 +27,7 @@ def parallelBuildTestQualityGate(config) {
 
         def buildTool = subProject.BUILD_TOOL
         def testTools = subProject.TEST_TOOL
-        branches["${repoName}"] = {
+        branches["${repoName}"] = {                 
             stage("Build - ${repoName}") {
                 echo "Building ${repoName} with ${buildTool}"
                 script {
@@ -128,8 +128,9 @@ def parallelBuildTestQualityGate(config) {
                         ).trim()
 
                         writeFile file: 'jenkins_junit.json', text: junitReportJson
+                        def giteaUrl = "http://localhost:14000/gitea/${repoName}"
                         def summaryOutput = sh(
-                            script: 'sh ./junit_result.sh',
+                            script: "sh ./junit_result.sh ${giteaUrl}",
                             returnStdout: true
                         ).trim()
 
@@ -242,8 +243,9 @@ def parallelBuildTestQualityGate(config) {
                                 echo "Unsupported build tool: ${buildTool} for Jacoco"
                             }
 
+                            def reportPath = (buildTool == 'gradle') ? jacocoHtmlPath : jacocoHtmlPath
                             def jacocoSummaryOutput = sh(
-                                script: 'sh ./jacoco_result.sh',
+                                script: "sh ./jacoco_result.sh ${reportPath}",
                                 returnStdout: true
                             ).trim()
 
@@ -331,15 +333,16 @@ def parallelBuildTestQualityGate(config) {
                     echo "Running SonarQube analysis on ${repoName}"
                     script {
                         try {
-                            def sonarEnv = (buildTool == 'gradle') ? 'sonar_gradle' : 'sonarqube'
+                            def sonarEnv = (buildTool == 'gradle') ? 'sonarqube_gradle' : 'sonarqube'
+
                             withSonarQubeEnv("${sonarEnv}") {
                                 if (buildTool == 'gradle') {
                                     sh """
                                         cd ${folder}
-                                        ./gradlew -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarApiToken} -Dsonar.projectKey=${repoName} -Dsonar.projectName="${repoName}" -Dsonar.plugins.downloadOnlyRequired=true -Dsonar.java.binaries=build sonar
+                                        ./gradlew --continue -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${gradle_sonarApiToken} -Dsonar.projectKey=${repoName} -Dsonar.projectName="${repoName}" -Dsonar.plugins.downloadOnlyRequired=true -Dsonar.java.binaries=build sonar 
                                     """
                                 } else if (buildTool == 'maven') {
-                                    sh "cd ${folder} && ${MVN_HOME}/bin/mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarApiToken} -Dsonar.projectKey=${repoName} -Dsonar.projectName=${repoName} -Dsonar.plugins.downloadOnlyRequired=true -Drat.skip=true"
+                                    sh "cd ${folder} && ${MVN_HOME}/bin/mvn sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${maven_sonarApiToken} -Dsonar.projectKey=${repoName} -Dsonar.projectName=${repoName} -Dsonar.plugins.downloadOnlyRequired=true -Drat.skip=true -DtestFailureIgnore=true"
                                 } else {
                                     echo "Unsupported build tool for SonarQube: ${buildTool}. Pipeline stopped."
                                 }
@@ -352,15 +355,26 @@ def parallelBuildTestQualityGate(config) {
                                 echo "Quality Gate status: ${qg.status}"
                                 if (qg.status != 'OK') {
                                     echo "Quality Gate failed: ${qg.status}"
+                                    currentBuild.result = 'UNSTABLE'
                                 }
                             }
 
-                            def qualityGateResult = httpRequest(
-                                httpMode: 'GET',
-                                url: "http://sonarqube:9000/api/qualitygates/project_status?projectKey=${repoName}",
-                                acceptType: 'APPLICATION_JSON',
-                                customHeaders: [[name: 'Authorization', value: "Bearer ${sonarApiToken}"]]
-                            )
+                            def qualityGateResult
+                            if (buildTool == 'gradle') {
+                                qualityGateResult = httpRequest(
+                                    httpMode: 'GET',
+                                    url: "http://sonarqube:9000/api/qualitygates/project_status?projectKey=${repoName}",
+                                    acceptType: 'APPLICATION_JSON',
+                                    customHeaders: [[name: 'Authorization', value: "Bearer ${gradle_sonarApiToken}"]]
+                                )
+                            } else if (buildTool == 'maven') {
+                                qualityGateResult = httpRequest(
+                                    httpMode: 'GET',
+                                    url: "http://sonarqube:9000/api/qualitygates/project_status?projectKey=${repoName}",
+                                    acceptType: 'APPLICATION_JSON',
+                                    customHeaders: [[name: 'Authorization', value: "Bearer ${maven_sonarApiToken}"]]
+                                )
+                            }
 
                             def json = readJSON text: qualityGateResult.content
                             def qualityGateStatus = json.projectStatus.status
@@ -425,15 +439,14 @@ pipeline {
     environment {
         redmineApiKey = credentials('redmine_api_key')
         jenkinsApiKey = credentials('jenkins_api')
+        
+        PATH = "${GRADLE_HOME}/bin:$PATH:/var/jenkins_home/.local/bin"
 
-        //sonarApiToken = credentials('sonar-github-maven')
-        sonarApiToken = credentials('sonar-github-gradle')
+        maven_sonarApiToken = credentials('sonar-github-maven')
+        gradle_sonarApiToken = credentials('sonar-github-gradle')
         
         GRADLE_HOME = tool 'Jenkins_Gradle_8_11'
-        PATH = "${GRADLE_HOME}/bin:${env.PATH}"
-        
         MVN_HOME = tool 'jenkins_Maven_3_9_9'
-        //PATH = "$PATH:/var/jenkins_home/.local/bin"
     }
 
     stages {
