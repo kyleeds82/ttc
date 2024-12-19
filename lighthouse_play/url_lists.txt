@@ -1,0 +1,5 @@
+https://github.com/settings/profile
+https://github.com/notifications
+https://github.com/settings/billing/summary
+https://github.com/codespaces
+https://github.com/settings/keys
