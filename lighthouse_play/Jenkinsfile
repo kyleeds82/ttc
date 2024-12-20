@@ -1,0 +1,222 @@
+pipeline {
+    agent any
+
+    /*
+    parameters {
+        string(name: 'urls', defaultValue: '', description: 'List of URLs to test with LHCI')
+    }
+    */
+
+    environment {
+         // true: Playwright 실행, false: Playwright 실행하지 않음
+        NEED_PLAYWRIGHT = "true"
+        
+        redmineApiKey = credentials('redmine_api_key') // Jenkins credential store에서 Redmine API 키를 가져옵니다.
+        PATH = "/usr/local/bin:$PATH"
+        NODE_PATH = "/usr/local/lib/node_modules"
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                script {
+                    sh 'rm -rf ./* ./.??*' // 모든 파일과 숨겨진 파일/폴더 삭제
+                    sh "git clone http://eae1154ad0b52159e17616b675e9b31accecb7ab@gitea:3000/gitea/lighthouse_play.git ."
+                    sh "git config --global user.name 'ttc'"
+                    sh "git config --global user.email 'ttc@kt.com'"
+                    sh 'git config --global --add safe.directory ${WORKSPACE}'
+                    sh "git checkout master"
+
+                    def currentTime = new Date().format("MM.dd HH:mm")
+                    def logEntry = "Time: ${currentTime}\n"
+
+                    sh "echo '${logEntry}' >> log.txt"
+                    sh 'git add log.txt'
+                    sh "git commit -m '${currentTime}'"
+
+                    sh 'git push http://eae1154ad0b52159e17616b675e9b31accecb7ab@gitea:3000/gitea/lighthouse_play.git'
+                    
+                    // url_lists.txt에서 URL 읽기
+                    def urlFilePath = "${WORKSPACE}/url_lists.txt"
+                    if (!fileExists(urlFilePath)) {
+                        echo "url_lists.txt 파일이 존재하지 않습니다: ${urlFilePath}"
+                    }
+
+                    // 파일에서 URL 목록 읽기 및 환경 변수 설정
+                    def urlsContent = readFile(urlFilePath).trim()
+                    env.urls = urlsContent.replaceAll("[\\r\\n]+", ",")
+                    echo "Loaded URLs: ${env.urls}"
+                }
+            }
+        }
+        
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    env.LHCI_BUILD_CONTEXT__CURRENT_HASH = sh(returnStdout: true, script: "git rev-parse HEAD").trim()
+                    // 환경 변수 NEED_PLAYWRIGHT 따라 분기 처리
+                    if (env.NEED_PLAYWRIGHT == "true") {
+                        echo "CREATE lighthouserc.json MADE BY PLAYWRIGHT"
+                        sh 'node login_playwright.js'
+                    } else {
+                        echo "USED DEFAULT lighthouserc.json"
+                        def urlFilePath = "${WORKSPACE}/url_lists.txt"
+                        def urlsContent = readFile(urlFilePath).trim().split('\n').collect { it.trim() }.findAll { it }
+                        
+                        echo "Loaded URLs: ${urlsContent}"
+                        def lighthouseFilePath = "${WORKSPACE}/lighthouserc.json"
+                        def lighthouseConfig = readJSON file: lighthouseFilePath
+                    
+                        // URL 필드에 URL 추가
+                        lighthouseConfig.ci.collect.url = urlsContent
+    
+                        // 업데이트된 JSON 파일 다시 저장
+                        writeFile file: lighthouseFilePath, text: groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(lighthouseConfig))
+                        echo "Updated lighthouserc.json with URLs: ${lighthouseConfig.ci.collect.url}"
+                    }
+        
+                    // Lighthouse CI 실행
+                    sh "lhci autorun"
+        
+                    // Lighthouse CI 결과 업로드
+                    sh 'lhci upload --target=lhci --serverBaseUrl="http://lhci:9003/" --token="d35b5e4b-b38c-4fcc-9b59-41e2d43adb3b"'
+                }
+            }
+        }
+        
+        stage('Create Redmine Issues') {
+            steps {
+                script {
+                    def resultsDir = "./lighthouse-results"
+                    def manifest = readJSON file: "${resultsDir}/manifest.json"
+        
+                    // 전체 URL에 대한 결과를 저장할 리스트
+                    def allResults = []
+        
+                    env.urls.split(',').each { url ->
+                        url = url.trim()
+        
+                        echo "Checking URL: ${url}"
+                        echo "Manifest: ${manifest}"
+        
+                        // 매니페스트의 URL을 정규화하여 비교
+                        def matchingEntries = manifest.findAll { manifestEntry ->
+                            def manifestUrl = manifestEntry.url
+                            if (!manifestUrl.endsWith('/')) {
+                                manifestUrl += '/'
+                            }
+                            if (!url.endsWith('/')) {
+                                url += '/'
+                            }
+                            return manifestUrl == url
+                        }
+        
+                        echo "Matching Entries: ${matchingEntries}"
+                        def htmlPaths = matchingEntries.collect { it.htmlPath }
+        
+                        if (htmlPaths.isEmpty()) {
+                            error "Could not find HTML report for URL: ${url}"
+                        }
+                        
+                        def calculateField = { field ->
+                            def values = matchingEntries.collect { it.summary[field] }
+                            if (values.any { it == null || it instanceof net.sf.json.JSONNull } || matchingEntries.size() == 0) {
+                                return "null"
+                            } else {
+                                // null이 없는 경우에만 계산 수행
+                                def sum = values.findAll { it != null && !(it instanceof net.sf.json.JSONNull) }.sum()
+                                def result = sum / matchingEntries.size() * 100
+                                return String.format("%.1f", result)
+                            }
+                        }
+
+    // 각 항목 계산
+    def performance = calculateField('performance')
+    def accessibility = calculateField('accessibility')
+    def bestPractices = calculateField('best-practices')
+    def seo = calculateField('seo')
+                        
+                        
+                        // URL별 결과 저장
+                        allResults << """
+        URL: ${url}
+        - 성능: ${performance != "null" ? "${performance}%" : "null"}
+        - 접근성: ${accessibility != "null" ? "${accessibility}%" : "null"}
+        - 권장사항: ${bestPractices != "null" ? "${bestPractices}%" : "null"}
+        - 검색엔진 최적화: ${seo != "null" ? "${seo}%" : "null"}
+        
+        """
+                    }
+        
+                    // 모든 결과를 하나의 문자열로 합침
+                    def issueDescription = allResults.join('\n\n')
+        
+                    def issueSubject = "[Project][${env.JOB_NAME}][${currentBuild.number}] - Lighthouse 테스트 결과"
+                    def redmineIssueData = [
+                        issue: [
+                            project_id: 1,
+                            tracker_id: 5,
+                            subject: issueSubject,
+                            description: issueDescription
+                        ]
+                    ]
+        
+                    // Redmine 이슈 생성
+                    def createIssueResponse = httpRequest(
+                        httpMode: 'POST',
+                        url: 'http://redmine:3000/issues.json',
+                        acceptType: 'APPLICATION_JSON',
+                        contentType: 'APPLICATION_JSON',
+                        customHeaders: [[name: 'X-Redmine-API-Key', value: redmineApiKey]],
+                        requestBody: groovy.json.JsonOutput.toJson(redmineIssueData)
+                    )
+        
+                    def issueId = readJSON(text: createIssueResponse.content).issue.id
+                    echo "Created Issue ID: ${issueId}"
+        
+                    def zipFilePath = "${resultsDir}/lighthouse-reports-${env.LHCI_BUILD_CONTEXT__CURRENT_HASH}.zip"
+                    def sourceDir = resultsDir
+        
+                    // Ensure the Jenkins workspace has correct permissions
+                    sh "chmod -R 777 ${resultsDir}"
+        
+                    // 모든 HTML 파일을 zip으로 압축
+                    zip zipFile: zipFilePath, archive: false, dir: sourceDir
+        
+                    // 파일 업로드
+                    def uploadResponse = httpRequest(
+                        url: "http://redmine:3000/uploads.json",
+                        httpMode: 'POST',
+                        customHeaders: [[name: 'X-Redmine-API-Key', value: redmineApiKey], [name: 'Content-Type', value: 'application/octet-stream']],
+                        requestBody: readFile(file: zipFilePath, encoding: 'ISO-8859-1'),
+                        validResponseCodes: '201'
+                    )
+        
+                    def uploadToken = readJSON(text: uploadResponse.content).upload.token
+                    echo "Upload Token: ${uploadToken}"
+        
+                    // 첨부 파일 추가
+                    def attachmentData = [
+                        issue: [
+                            uploads: [
+                                [
+                                    token: uploadToken,
+                                    filename: "lighthouse-reports-${env.LHCI_BUILD_CONTEXT__CURRENT_HASH}.zip",
+                                    content_type: 'application/zip'
+                                ]
+                            ]
+                        ]
+                    ]
+        
+                    httpRequest(
+                        url: "http://redmine:3000/issues/${issueId}.json",
+                        httpMode: 'PUT',
+                        contentType: 'APPLICATION_JSON',
+                        customHeaders: [[name: 'X-Redmine-API-Key', value: redmineApiKey]],
+                        requestBody: groovy.json.JsonOutput.toJson(attachmentData)
+                    )
+                }
+            }
+        }
+    }
+}
