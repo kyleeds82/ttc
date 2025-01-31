@@ -1,28 +1,603 @@
-+ npm install puppeteer
-
-up to date, audited 103 packages in 1s
-
-10 packages are looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
-[Pipeline] sh
-+ node simple_login_puppeteer.js
-/var/jenkins_home/workspace/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314
-                reject(new Error([
-                       ^
-
-Error: Failed to launch the browser process!
-Failed to move to new namespace: PID namespaces supported, Network namespace supported, but failed: errno = Operation not permitted
-[1693:1693:0131/163610.632567:FATAL:zygote_host_impl_linux.cc(207)] Check failed: . : Operation not permitted (1)
-[0131/163610.638389:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
-[0131/163610.638475:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
-
-
-TROUBLESHOOTING: https://pptr.dev/troubleshooting
-
-    at ChildProcess.onClose (/var/jenkins_home/workspace/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314:24)
-    at ChildProcess.emit (node:events:529:35)
+Running Lighthouse 1 time(s) on https://www.thehyundai.com/Home.html
+Run #1...failed!
+Error: Lighthouse failed with exit code 1
+    at ChildProcess.<anonymous> (/usr/local/lib/node_modules/@lhci/cli/src/collect/node-runner.js:120:21)
+    at ChildProcess.emit (node:events:517:28)
     at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+{
+  "lighthouseVersion": "12.1.0",
+  "requestedUrl": "https://www.thehyundai.com/Home.html",
+  "mainDocumentUrl": "https://www.thehyundai.com/Home.html",
+  "finalDisplayedUrl": "https://www.thehyundai.com/Home.html",
+  "finalUrl": "https://www.thehyundai.com/Home.html",
+  "fetchTime": "2025-01-31T07:43:02.220Z",
+  "gatherMode": "navigation",
+  "runtimeError": {
+    "code": "TARGET_CRASHED",
+    "message": "Browser tab has unexpectedly crashed."
+  },
+  "runWarnings": [],
+  "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36",
+  "environment": {
+    "networkUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/131.0.0.0 Safari/537.36",
+    "benchmarkIndex": 1939,
+    "credits": {}
+  },
+  "audits": {
+    "is-on-https": {
+      "id": "is-on-https",
+      "title": "Uses HTTPS",
+      "description": "All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding [mixed content](https://developers.google.com/web/fundamentals/security/prevent-mixed-content/what-is-mixed-content), where some resources are loaded over HTTP despite the initial request being served over HTTPS. HTTPS prevents intruders from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite for HTTP/2 and many new web platform APIs. [Learn more about HTTPS](https://developer.chrome.com/docs/lighthouse/pwa/is-on-https/).",
+      "score": 1,
+      "scoreDisplayMode": "binary",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
+    "redirects-http": {
+      "id": "redirects-http",
+      "title": "Redirects HTTP traffic to HTTPS",
+      "description": "Make sure that you redirect all HTTP traffic to HTTPS in order to enable secure web features for all your users. [Learn more](https://developer.chrome.com/docs/lighthouse/pwa/redirects-http/).",
+      "score": null,
+      "scoreDisplayMode": "notApplicable"
+    },
+    "viewport": {
+      "id": "viewport",
+      "title": "Has a `<meta name=\"viewport\">` tag with `width` or `initial-scale`",
+      "description": "A `<meta name=\"viewport\">` not only optimizes your app for mobile screen sizes, but also prevents [a 300 millisecond delay to user input](https://developer.chrome.com/blog/300ms-tap-delay-gone-away/). [Learn more about using the viewport meta tag](https://developer.chrome.com/docs/lighthouse/pwa/viewport/).",
+      "score": null,
+      "scoreDisplayMode": "error",
+      "errorMessage": "Required MetaElements gatherer encountered an error: TARGET_CRASHED",
+      "errorStack": "LighthouseError: TARGET_CRASHED\n    at ProtocolSession.<anonymous> (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/lighthouse/core/gather/session.js:61:11)\n    at ProtocolSession.emit (node:events:517:28)\n    at ProtocolSession._handleProtocolEvent (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/lighthouse/core/gather/session.js:76:10)\n    at file:///usr/local/lib/node_modules/@lhci/cli/node_modules/puppeteer-core/lib/esm/third_party/mitt/mitt.js:38:7\n    at Array.map (<anonymous>)\n    at Object.emit (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/puppeteer-core/lib/esm/third_party/mitt/mitt.js:37:39)\n    at CdpCDPSession.emit (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/puppeteer-core/lib/esm/puppeteer/common/EventEmitter.js:77:23)\n    at CdpCDPSession._onMessage (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/puppeteer-core/lib/esm/puppeteer/cdp/CDPSession.js:79:18)\n    at Connection.onMessage (file:///usr/local/lib/node_modules/@lhci/cli/node_modules/puppeteer-core/lib/esm/puppeteer/cdp/Connection.js:139:25)\n    at WebSocket.<anonymous> (file:///usr/local/lib/no
+Fri, 31 Jan 2025 07:43:00 GMT LH:ChromeLauncher Found existing Chrome already running using port 38759, using that.
+Fri, 31 Jan 2025 07:43:01 GMT LH:status Connecting to browser
+Fri, 31 Jan 2025 07:43:01 GMT LH:status Navigating to about:blank
+Fri, 31 Jan 2025 07:43:01 GMT LH:status Benchmarking machine
+Fri, 31 Jan 2025 07:43:02 GMT LH:status Preparing target for navigation mode
+Fri, 31 Jan 2025 07:43:02 GMT LH:status Cleaning origin data
+Fri, 31 Jan 2025 07:43:02 GMT LH:status Cleaning browser cache
+Fri, 31 Jan 2025 07:43:02 GMT LH:status Preparing network conditions
+Fri, 31 Jan 2025 07:43:02 GMT LH:status Navigating to https://www.thehyundai.com/Home.html
+Fri, 31 Jan 2025 07:43:32 GMT LH:status Getting artifact: DevtoolsLog
+Fri, 31 Jan 2025 07:43:32 GMT LH:status Getting artifact: Trace
+Fri, 31 Jan 2025 07:43:32 GMT LH:status Getting artifact: RootCauses
+Fri, 31 Jan 2025 07:43:45 GMT LH:TargetManager:error Inspector.targetCrashed
+Fri, 31 Jan 2025 07:43:45 GMT LH:RootCauses:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Accessibility
+Fri, 31 Jan 2025 07:43:45 GMT LH:Accessibility:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: AnchorElements
+Fri, 31 Jan 2025 07:43:45 GMT LH:AnchorElements:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: ConsoleMessages
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: CSSUsage
+Fri, 31 Jan 2025 07:43:45 GMT LH:CSSUsage:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Doctype
+Fri, 31 Jan 2025 07:43:45 GMT LH:Doctype:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: DOMStats
+Fri, 31 Jan 2025 07:43:45 GMT LH:DOMStats:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: FontSize
+Fri, 31 Jan 2025 07:43:45 GMT LH:FontSize:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Inputs
+Fri, 31 Jan 2025 07:43:45 GMT LH:Inputs:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: ImageElements
+Fri, 31 Jan 2025 07:43:45 GMT LH:ImageElements:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: InspectorIssues
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: JsUsage
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: LinkElements
+Fri, 31 Jan 2025 07:43:45 GMT LH:LinkElements:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: MainDocumentContent
+Fri, 31 Jan 2025 07:43:45 GMT LH:MainDocumentContent:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: MetaElements
+Fri, 31 Jan 2025 07:43:45 GMT LH:MetaElements:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: NetworkUserAgent
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: OptimizedImages
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:optimized-images:warn TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:OptimizedImages:error All image optimizations failed
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: ResponseCompression
+Fri, 31 Jan 2025 07:43:45 GMT LH:ResponseCompression:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: RobotsTxt
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Scripts
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: SourceMaps
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Stacks
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Collect stacks
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: Stylesheets
+Fri, 31 Jan 2025 07:43:45 GMT LH:TraceElements:error Dependency "RootCauses" failed with exception: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: ViewportDimensions
+Fri, 31 Jan 2025 07:43:45 GMT LH:ViewportDimensions:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: devtoolsLogs
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: traces
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: FullPageScreenshot
+Fri, 31 Jan 2025 07:43:45 GMT LH:FullPageScreenshot:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Getting artifact: BFCacheFailures
+Fri, 31 Jan 2025 07:43:45 GMT LH:BFCacheFailures:error TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error DOM.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error DOM.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error DOM.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error DOMSnapshot.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error DOM.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error CSS.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Audits.getEncodedResponse 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.getResponseBody 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.getFrameTree 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.getFrameTree 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Runtime.evaluate 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.enable 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.getLayoutMetrics 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Network.setUserAgentOverride 
+Fri, 31 Jan 2025 07:43:45 GMT LH:method <= browser ERR:error Page.getNavigationHistory 
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Analyzing and running audits...
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: Uses HTTPS
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: Redirects HTTP traffic to HTTPS
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: Has a `<meta name="viewport">` tag with `width` or `initial-scale`
+Fri, 31 Jan 2025 07:43:45 GMT LH:Runner:warn MetaElements gatherer, required by audit viewport, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: First Contentful Paint
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: Largest Contentful Paint
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: First Meaningful Paint
+Fri, 31 Jan 2025 07:43:45 GMT LH:status Auditing: Speed Index
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Screenshot Thumbnails
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Final Screenshot
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Total Blocking Time
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Max Potential First Input Delay
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Cumulative Layout Shift
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: No browser errors logged to the console
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Initial server response time was short
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Time to Interactive
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: User Timing marks and measures
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoid chaining critical requests
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoid multiple page redirects
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Displays images with correct aspect ratio
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn ImageElements gatherer, required by audit image-aspect-ratio, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Serves images with appropriate resolution
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn ImageElements gatherer, required by audit image-size-responsive, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoids deprecated APIs
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoids third-party cookies
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Minimizes main-thread work
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: JavaScript execution time
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Preconnect to required origins
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn LinkElements gatherer, required by audit uses-rel-preconnect, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: All text remains visible during webfont loads
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Diagnostics
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Network Requests
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Network Round Trip Times
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Server Backend Latencies
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Tasks
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Metrics
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Resources Summary
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Minimize third-party usage
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Lazy load third-party resources with facades
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Largest Contentful Paint element
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn TraceElements gatherer, required by audit largest-contentful-paint-element, encountered an error: Dependency "RootCauses" failed with exception: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Largest Contentful Paint image was not lazily loaded
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn TraceElements gatherer, required by audit lcp-lazy-loaded, encountered an error: Dependency "RootCauses" failed with exception: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoid large layout shifts
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn RootCauses gatherer, required by audit layout-shifts, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoid long main-thread tasks
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Avoid non-composited animations
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn TraceElements gatherer, required by audit non-composited-animations, encountered an error: Dependency "RootCauses" failed with exception: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Image elements have explicit `width` and `height`
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn ImageElements gatherer, required by audit unsized-images, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Page has valid source maps
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Preload Largest Contentful Paint image
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn TraceElements gatherer, required by audit prioritize-lcp-image, encountered an error: Dependency "RootCauses" failed with exception: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Ensure CSP is effective against XSS attacks
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn MetaElements gatherer, required by audit csp-xss, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Script Treemap Data
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: `[accesskey]` values are unique
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn Accessibility gatherer, required by audit accesskeys, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: `[aria-*]` attributes match their roles
+Fri, 31 Jan 2025 07:43:46 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-allowed-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:46 GMT LH:status Auditing: Uses ARIA roles only on compatible elements
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-allowed-role, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `button`, `link`, and `menuitem` elements have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-command-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA attributes are used as specified for the element's role
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-conditional-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Deprecated ARIA roles were not used
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-deprecated-role, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Elements with `role="dialog"` or `role="alertdialog"` have accessible names.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-dialog-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[aria-hidden="true"]` is not present on the document `<body>`
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-hidden-body, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[aria-hidden="true"]` elements do not contain focusable descendents
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-hidden-focus, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA input fields have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-input-field-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA `meter` elements have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-meter-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA `progressbar` elements have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-progressbar-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Elements use only permitted ARIA attributes
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-prohibited-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[role]`s have all required `[aria-*]` attributes
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-required-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Elements with an ARIA `[role]` that require children to contain a specific `[role]` have all required children.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-required-children, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[role]`s are contained by their required parent element
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-required-parent, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[role]` values are valid
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-roles, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Elements with the `role=text` attribute do not have focusable descendents.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-text, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA toggle fields have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-toggle-field-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA `tooltip` elements have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-tooltip-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA `treeitem` elements have accessible names
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-treeitem-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[aria-*]` attributes have valid values
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-valid-attr-value, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[aria-*]` attributes are valid and not misspelled
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit aria-valid-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Buttons have an accessible name
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit button-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: The page contains a heading, skip link, or landmark region
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit bypass, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Background and foreground colors have a sufficient contrast ratio
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit color-contrast, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<dl>`'s contain only properly-ordered `<dt>` and `<dd>` groups, `<script>`, `<template>` or `<div>` elements.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit definition-list, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Definition list items are wrapped in `<dl>` elements
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit dlitem, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document has a `<title>` element
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit document-title, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: ARIA IDs are unique
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit duplicate-id-aria, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: All heading elements contain content.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit empty-heading, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: No form fields have multiple labels
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit form-field-multiple-labels, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<frame>` or `<iframe>` elements have a title
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit frame-title, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Heading elements appear in a sequentially-descending order
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit heading-order, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<html>` element has a `[lang]` attribute
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit html-has-lang, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<html>` element has a valid value for its `[lang]` attribute
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit html-lang-valid, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<html>` element has an `[xml:lang]` attribute with the same base language as the `[lang]` attribute.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit html-xml-lang-mismatch, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Identical links have the same purpose.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit identical-links-same-purpose, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Image elements have `[alt]` attributes
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit image-alt, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Image elements do not have `[alt]` attributes that are redundant text.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit image-redundant-alt, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Input buttons have discernible text.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit input-button-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<input type="image">` elements have `[alt]` text
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit input-image-alt, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Elements with visible text labels have matching accessible names.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit label-content-name-mismatch, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Form elements have associated labels
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit label, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document has a main landmark.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit landmark-one-main, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Links have a discernible name
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit link-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Links are distinguishable without relying on color.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit link-in-text-block, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Lists contain only `<li>` elements and script supporting elements (`<script>` and `<template>`).
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit list, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: List items (`<li>`) are contained within `<ul>`, `<ol>` or `<menu>` parent elements
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit listitem, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: The document does not use `<meta http-equiv="refresh">`
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit meta-refresh, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[user-scalable="no"]` is not used in the `<meta name="viewport">` element and the `[maximum-scale]` attribute is not less than 5.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit meta-viewport, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<object>` elements have alternate text
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit object-alt, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Select elements have associated label elements.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit select-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Skip links are focusable.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit skip-link, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: No element has a `[tabindex]` value greater than 0
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit tabindex, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Tables have different content in the summary attribute and `<caption>`.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit table-duplicate-name, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Tables use `<caption>` instead of cells with the `[colspan]` attribute to indicate a caption.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit table-fake-caption, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Touch targets have sufficient size and spacing.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit target-size, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<td>` elements in a large `<table>` have one or more table headers.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit td-has-header, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Cells in a `<table>` element that use the `[headers]` attribute refer to table cells within the same table.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit td-headers-attr, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<th>` elements and elements with `[role="columnheader"/"rowheader"]` have data cells they describe.
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit th-has-data-cells, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `[lang]` attributes have a valid value
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit valid-lang, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: `<video>` elements contain a `<track>` element with `[kind="captions"]`
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Accessibility gatherer, required by audit video-caption, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Custom controls have associated labels
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Custom controls have ARIA roles
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: User focus is not accidentally trapped in a region
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Interactive controls are keyboard focusable
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Interactive elements indicate their purpose and state
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: The page has a logical tab order
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: The user's focus is directed to new content added to the page
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Offscreen content is hidden from assistive technology
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: HTML5 landmark elements are used to improve navigation
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Visual order on the page follows DOM order
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Uses efficient cache policy on static assets
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoids enormous network payloads
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Defer offscreen images
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn ImageElements gatherer, required by audit offscreen-images, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Eliminate render-blocking resources
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn CSSUsage gatherer, required by audit render-blocking-resources, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Minify CSS
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Minify JavaScript
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Reduce unused CSS
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn CSSUsage gatherer, required by audit unused-css-rules, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Reduce unused JavaScript
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Serve images in next-gen formats
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn OptimizedImages gatherer, required by audit modern-image-formats, encountered an error: All image optimizations failed
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Efficiently encode images
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn OptimizedImages gatherer, required by audit uses-optimized-images, encountered an error: All image optimizations failed
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Enable text compression
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn ResponseCompression gatherer, required by audit uses-text-compression, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Properly size images
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn ImageElements gatherer, required by audit uses-responsive-images, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Use video formats for animated content
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Remove duplicate modules in JavaScript bundles
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoid serving legacy JavaScript to modern browsers
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Page has the HTML doctype
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Doctype gatherer, required by audit doctype, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Properly defines charset
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn MainDocumentContent gatherer, required by audit charset, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoids an excessive DOM size
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn DOMStats gatherer, required by audit dom-size, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoids requesting the geolocation permission on page load
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: No issues in the `Issues` panel in Chrome Devtools
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoids `document.write()`
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Detected JavaScript libraries
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Avoids requesting the notification permission on page load
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Allows users to paste into input fields
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn Inputs gatherer, required by audit paste-preventing-inputs, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Use HTTP/2
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Uses passive listeners to improve scrolling performance
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document has a meta description
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn MetaElements gatherer, required by audit meta-description, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Page has successful HTTP status code
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document uses legible font sizes
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn FontSize gatherer, required by audit font-size, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Links have descriptive text
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn AnchorElements gatherer, required by audit link-text, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Links are crawlable
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn AnchorElements gatherer, required by audit crawlable-anchors, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Page isn’t blocked from indexing
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn MetaElements gatherer, required by audit is-crawlable, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: robots.txt is valid
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document has a valid `hreflang`
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn LinkElements gatherer, required by audit hreflang, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Document has a valid `rel=canonical`
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn LinkElements gatherer, required by audit canonical, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Structured data is valid
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Auditing: Page didn't prevent back/forward cache restoration
+Fri, 31 Jan 2025 07:43:47 GMT LH:Runner:warn BFCacheFailures gatherer, required by audit bf-cache, encountered an error: TARGET_CRASHED
+Fri, 31 Jan 2025 07:43:47 GMT LH:status Generating results...
+Runtime error encountered: Browser tab has unexpectedly crashed.
 
-Node.js v18.19.0
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withCredentials
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+ERROR: script returned exit code 1
+Finished: FAILURE
