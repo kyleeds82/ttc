@@ -1,0 +1,28 @@
++ npm install puppeteer
+
+up to date, audited 103 packages in 1s
+
+10 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[Pipeline] sh
++ node simple_login_puppeteer.js
+/var/jenkins_home/workspace/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314
+                reject(new Error([
+                       ^
+
+Error: Failed to launch the browser process!
+Failed to move to new namespace: PID namespaces supported, Network namespace supported, but failed: errno = Operation not permitted
+[1693:1693:0131/163610.632567:FATAL:zygote_host_impl_linux.cc(207)] Check failed: . : Operation not permitted (1)
+[0131/163610.638389:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq: No such file or directory (2)
+[0131/163610.638475:ERROR:file_io_posix.cc(145)] open /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq: No such file or directory (2)
+
+
+TROUBLESHOOTING: https://pptr.dev/troubleshooting
+
+    at ChildProcess.onClose (/var/jenkins_home/workspace/node_modules/@puppeteer/browsers/lib/cjs/launch.js:314:24)
+    at ChildProcess.emit (node:events:529:35)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+
+Node.js v18.19.0
