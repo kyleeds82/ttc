@@ -1,1 +1,36 @@
-export NODE_TLS_REJECT_UNAUTHORIZED=0 && lhci autorun
+{
+  "ci": {
+    "collect": {
+      "puppeteerScript": "./reload_chrome.js",
+      "url": [
+        "http://dev-security.ktds.co.kr/main",
+        "http://dev-security.ktds.co.kr/maildeny",
+        "http://dev-security.ktds.co.kr/privacyi"
+      ],
+      "numberOfRuns": 1,
+      "puppeteerLaunchOptions": {
+        "executablePath": "/usr/bin/chromium",
+        "headless": true,
+        "userDataDir": "./crawl4ai_url/user-data",
+        "args": [
+          "--no-sandbox",
+          "--disable-gpu",
+          "--disable-dev-shm-usage",
+          "--ignore-certificate-errors"
+        ]
+      },
+      "settings": {
+        "output": [
+          "html",
+          "json"
+        ],
+        "ignoreHTTPSErrors": true,
+        "chromeFlags": "--no-sandbox --disable-dev-shm-usage --disable-gpu --headless=new"
+      }
+    },
+    "upload": {
+      "target": "filesystem",
+      "outputDir": "./lighthouse-results"
+    }
+  }
+}
