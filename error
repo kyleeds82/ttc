@@ -1,23 +1,21 @@
-await page.setBypassCSP(true); // CSP 우회 설정 (필요한 경우)
-      await page.setJavaScriptEnabled(true);
-      await page.emulateTimezone('Asia/Seoul'); // 시간대 설정
-      await page.setViewport({ width: 1280, height: 720 });
++ lhci autorun
+✅  .lighthouseci/ directory writable
+✅  Configuration file found
+✅  Chrome installation found
+Healthcheck passed!
 
-      // 도메인별 쿠키 파일 경로 설정
-      const domainName = getDomainName(currentUrl);
-      const cookiesPath = `./crawl4ai_url/user-data/cookies_${domainName}.json`;
+WARNING: collect.settings.chromeFlags option will be ignored.
+WARNING: If you want chromeFlags with puppeteerScript, use collect.puppeteerLaunchOptions.args option.
+Analyzing URL: http://dev-security.ktds.co.kr/main
+Cookies restored successfully.
+Session established and page loaded for: http://dev-security.ktds.co.kr/main
+Running Lighthouse 1 time(s) on http://dev-security.ktds.co.kr/main
+Run #1...failed!
+Error: Lighthouse failed with exit code 1
+    at ChildProcess.<anonymous> (/usr/local/lib/node_modules/@lhci/cli/src/collect/node-runner.js:120:21)
+    at ChildProcess.emit (node:events:517:28)
+    at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+Invalid values:
+  Argument: preset, Given: "mobile", Choices: "perf", "experimental", "desktop"
 
-      if (fs.existsSync(cookiesPath)) {
-        const cookies = JSON.parse(fs.readFileSync(cookiesPath, 'utf-8'));
-        await page.setCookie(...cookies);
-        console.log('Cookies restored successfully.');
-      } else {
-        console.error('Error: Cookies file not found.');
-        return;
-      }
-
-      await page.goto(currentUrl, {
-        waitUntil: 'load',
-        timeout: 60000, // 타임아웃 60초 (기본값보다 길게)
-        ignoreHTTPSErrors: true
-        
+Specify --help for available options
