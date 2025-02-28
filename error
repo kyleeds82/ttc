@@ -1,169 +1,97 @@
-Started by user admin
+const fs = require('fs');
+const path = require('path');
+const puppeteer = require('puppeteer');
+const { URL } = require("url");
 
-[Pipeline] Start of Pipeline
-[Pipeline] node
-Running on Jenkins
- in /var/jenkins_home/workspace/TestToolChain/security_ktds
-[Pipeline] {
-[Pipeline] withCredentials
-Masking supported pattern matches of $redmineApiKey
-[Pipeline] {
-[Pipeline] withEnv
-[Pipeline] {
-[Pipeline] stage
-[Pipeline] { (Clone Repository)
-[Pipeline] script
-[Pipeline] {
-[Pipeline] echo
-Repository Name: security_ktds
-[Pipeline] sh
-+ rm -rf ./after_pw_b.html ./autoLogin.js ./crawl4ai_url ./log.txt ./otp_url_b.html ./reload_chrome.js ./result_sshot ./sep_score.js ./test.py ./.git
-[Pipeline] sh
-+ git clone http://eae1154ad0b52159e17616b675e9b31accecb7ab@gitea:3000/gitea/security_ktds.git .
-Cloning into '.'...
-[Pipeline] sh
-+ git config --global user.name ttc
-[Pipeline] sh
-+ git config --global user.email ttc@kt.com
-[Pipeline] sh
-+ git config --global --add safe.directory /var/jenkins_home/workspace/TestToolChain/security_ktds
-[Pipeline] sh
-+ git checkout master
-Already on 'master'
-Your branch is up to date with 'origin/master'.
-[Pipeline] sh
-+ echo Time: 02.28 11:01
+function getDomainName(url) {
+  const hostname = new URL(url).hostname;
+  const parts = hostname.split('.');
 
-[Pipeline] sh
-+ git add log.txt
-[Pipeline] sh
-+ git commit -m 02.28 11:01
-[master a3c42ed] 02.28 11:01
- 1 file changed, 2 insertions(+)
-[Pipeline] sh
-+ git push http://eae1154ad0b52159e17616b675e9b31accecb7ab@gitea:3000/gitea/security_ktds.git
-remote: . Processing 1 references        
-remote: Processed 1 references in total        
-To http://gitea:3000/gitea/security_ktds.git
-   dfeba6e..a3c42ed  master -> master
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Crawl4ai Before SMS code)
-[Pipeline] script
-[Pipeline] {
-[Pipeline] sh
-+ git rev-parse HEAD
-[Pipeline] sh
-+ python3 crawl4ai_url/crawl4aiGetUrl.py
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Crawl4ai User Input SMS code)
-[Pipeline] script
-[Pipeline] {
-[Pipeline] timeout
-Timeout set to expire in 8 min 20 sec
-[Pipeline] {
-[Pipeline] sleep
-Sleeping for 2 min 0 sec
-[Pipeline] waitUntil
-[Pipeline] {
-[Pipeline] input
-Input requested
-Approved by admin
+  // www로 시작하는 경우 제거
+  if (parts[0] === "www") {
+    return parts.slice(1).join('_');
+  }
+  
+  return hostname.replace(/\./g, '_'); // .을 _로 변경
+}
 
-[Pipeline] writeFile
-[Pipeline] echo
-코드 저장: 949518
-[Pipeline] }
-[Pipeline] // waitUntil
-[Pipeline] }
-[Pipeline] // timeout
-[Pipeline] }
-[Pipeline] // script
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Crawl4ai 종료 대기)
-Stage "Crawl4ai 종료 대기" skipped due to earlier failure(s)
-[Pipeline] getContext
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Puppeteer Before SMS code)
-Stage "Puppeteer Before SMS code" skipped due to earlier failure(s)
-[Pipeline] getContext
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Play LHCI)
-Stage "Play LHCI" skipped due to earlier failure(s)
-[Pipeline] getContext
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] }
-[Pipeline] // withEnv
-[Pipeline] }
-[Pipeline] // withCredentials
-[Pipeline] }
-[Pipeline] // node
-[Pipeline] End of Pipeline
-Also:   org.jenkinsci.plugins.workflow.actions.ErrorAction$ErrorId: 05b559bf-eaf5-4ba6-b40e-d82cd90d848d
-java.lang.ClassCastException: body return value null is not boolean
-	at PluginClassLoader for workflow-basic-steps//org.jenkinsci.plugins.workflow.steps.WaitForConditionStep$Callback.onSuccess(WaitForConditionStep.java:174)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsBodyExecution$SuccessAdapter.receive(CpsBodyExecution.java:381)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.java:93)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:116)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:85)
-	at jdk.internal.reflect.GeneratedMethodAccessor307.invoke(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.dispatchOrArg(FunctionCallBlock.java:110)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.FunctionCallBlock$ContinuationImpl.fixArg(FunctionCallBlock.java:85)
-	at jdk.internal.reflect.GeneratedMethodAccessor307.invoke(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.CastBlock$ContinuationImpl.cast(CastBlock.java:47)
-	at jdk.internal.reflect.GeneratedMethodAccessor314.invoke(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.dispatch(CollectionLiteralBlock.java:55)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.CollectionLiteralBlock$ContinuationImpl.item(CollectionLiteralBlock.java:45)
-	at jdk.internal.reflect.GeneratedMethodAccessor312.invoke(Unknown Source)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
-	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ContinuationPtr$ContinuationImpl.receive(ContinuationPtr.java:72)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.impl.ConstantBlock.eval(ConstantBlock.java:21)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Next.step(Next.java:83)
-	at PluginClassLoader for workflow-cps//com.cloudbees.groovy.cps.Continuable.run0(Continuable.java:147)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.SandboxContinuable.access$001(SandboxContinuable.java:17)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.SandboxContinuable.run0(SandboxContinuable.java:49)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThread.runNextChunk(CpsThread.java:180)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup.run(CpsThreadGroup.java:422)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:330)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsThreadGroup$2.call(CpsThreadGroup.java:294)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$wrap$4(CpsVmExecutorService.java:140)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:139)
-	at jenkins.util.ContextResettingExecutorService$1.run(ContextResettingExecutorService.java:28)
-	at jenkins.security.ImpersonatingExecutorService$1.run(ImpersonatingExecutorService.java:68)
-	at jenkins.util.ErrorLoggingExecutorService.lambda$wrap$0(ErrorLoggingExecutorService.java:51)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Unknown Source)
-	at java.base/java.util.concurrent.FutureTask.run(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:53)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService$1.call(CpsVmExecutorService.java:50)
-	at org.codehaus.groovy.runtime.GroovyCategorySupport$ThreadCategoryInfo.use(GroovyCategorySupport.java:136)
-	at org.codehaus.groovy.runtime.GroovyCategorySupport.use(GroovyCategorySupport.java:275)
-	at PluginClassLoader for workflow-cps//org.jenkinsci.plugins.workflow.cps.CpsVmExecutorService.lambda$categoryThreadFactory$0(CpsVmExecutorService.java:50)
-	at java.base/java.lang.Thread.run(Unknown Source)
-Finished: FAILURE
+(async () => {
+    const urlFilePath = path.join(__dirname, 'crawl4ai_url/compare_list.txt');
+
+    if (!fs.existsSync(urlFilePath)) {
+        console.error('compare_list.txt 파일을 찾을 수 없습니다.');
+        process.exit(1);
+    }
+  
+    const urlList = fs.readFileSync(urlFilePath, 'utf-8')
+        .split('\n') // 줄바꿈으로 분리
+        .map(line => line.trim()) // 공백 제거
+        .filter(line => line.length > 0); // 빈 줄 제거
+
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+
+    const MAX_RUNS = 10;
+    const limitedUrls = urlList.slice(0, MAX_RUNS);
+
+    const lhciConfig = {
+      ci: {
+        collect: {
+          puppeteerScript : './reload_chrome.js',
+          url: limitedUrls,
+          numberOfRuns: 1,
+          puppeteerLaunchOptions: {
+            //executablePath: '/usr/bin/chromium',
+            executablePath: 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+            headless: true,
+            userDataDir: './crawl4ai_url/user-data', 
+            args: ['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
+          },
+          settings: {
+            preset: 'desktop',
+            output: ['html', 'json'],
+            chromeFlags: "--no-sandbox --disable-dev-shm-usage --disable-gpu --headless=new"
+
+            }
+          },
+        "upload": {
+          target: 'filesystem',
+          outputDir: './lighthouse-results',
+        }
+      }
+    }
+
+    // JSON 파일로 저장
+    fs.writeFileSync('./lighthouserc.json', JSON.stringify(lhciConfig, null, 2));
+    console.log('lighthouserc.json 생성 완료');
+})();
+
+
+
+
+
+PS C:\Users\KTDS\Downloads\js_save-master\js_save> node .\autoLogin.js
+node:internal/modules/cjs/loader:1228
+  throw err;
+  ^
+
+Error: Cannot find module 'puppeteer'
+Require stack:
+- C:\Users\KTDS\Downloads\js_save-master\js_save\autoLogin.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1225:15)
+    at Module._load (node:internal/modules/cjs/loader:1051:27)
+    at Module.require (node:internal/modules/cjs/loader:1311:19)
+    at require (node:internal/modules/helpers:179:18)
+    at Object.<anonymous> (C:\Users\KTDS\Downloads\js_save-master\js_save\autoLogin.js:3:19)
+    at Module._compile (node:internal/modules/cjs/loader:1469:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:174:12) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [
+    'C:\\Users\\KTDS\\Downloads\\js_save-master\\js_save\\autoLogin.js'
+  ]
+}
+
+Node.js v20.18.0
