@@ -1,3 +1,5 @@
+mklink /D node_modules C:\Users\KTDS\AppData\Roaming\npm\node_modules
+
 $env:NODE_PATH="C:\Users\KTDS\AppData\Roaming\npm\node_modules"
 
 
