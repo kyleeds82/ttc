@@ -1,3 +1,7 @@
+$env:NODE_PATH="C:\Users\KTDS\AppData\Roaming\npm\node_modules"
+
+
+
 $ node autoLogin.js
 node:internal/modules/cjs/loader:1228
   throw err;
